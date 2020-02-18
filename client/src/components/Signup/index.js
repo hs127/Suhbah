@@ -3,18 +3,19 @@ import React from "react";
 
 //sign up Modal 
 
-function Signup(props) {
+function Signupform(props) {
 
     return (
         <div className="SignupForm">
             <h1>Signup form</h1>
             <form>
-                <label htmlFor="username">Username: </label>
-                <h2>{props.username}</h2>
+                <label htmlFor="email">Email: </label>
+                <h2>{props.email}</h2>
+
                 <input
                     type="text"
-                    name="username"
-                    value={props.username}
+                    name="email"
+                    value={props.email}
                     onChange={props.handleInputChange}
                 />
                 <label htmlFor="password">Password: </label>
@@ -33,4 +34,4 @@ function Signup(props) {
     );
 }
 
-export default Signup;
+export default Signupform;

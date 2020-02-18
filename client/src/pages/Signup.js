@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import API from "../utils/API";
 import fire from "../config/Fire";
+import Signupform from "../components/Signup";
+import Loginform from "../components/Loginform";
 
 
 
@@ -9,7 +11,8 @@ import fire from "../config/Fire";
 class Signup extends Component {
     state = {
         email: "",
-        password: ""
+        password: "",
+        userStatus: true
     };
     // componentDidMount() {
 
@@ -21,15 +24,32 @@ class Signup extends Component {
 
     };
 
-
+    //for login button
     login = e => {
         e.preventDefault();
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
             .then((u) => { console.log(u); })
-            .catch((error) => { console.log(error); });
+            .catch((error) => {
+                if (error.code === "auth/wrong-password") {
+                    alert("auth/wrong-password")
+                }
+                else {
+                    alert(error.message);
+                }
+
+            });
     }
 
     // When the form is submitted, prevent the default event and alert the username and password
+
+    handleStatus = event => {
+        event.preventDefault();
+        console.log("handle Status clicked");
+        console.log(event.target.name);
+        this.setState({ [event.target.name]: false });
+
+    };
+    //for signup button
     handleFormSubmit = event => {
         event.preventDefault();
         fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
@@ -53,30 +73,47 @@ class Signup extends Component {
         });
 
     };
-
+    //I want the signup form to render when the user selects the sign up button 
+    ///I want the login form to render when the user selects the login button 
 
     render() {
+        console.log(this.state.userStatus);
         return (
-            <form>
-                <p>Username: {this.state.email}</p>
-                <p>Password: {this.state.password}</p>
-                <input
-                    type="text"
-                    placeholder="email"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleInputChange}
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleInputChange}
-                />
-                <button onClick={this.handleFormSubmit}>Signup</button>
-                <button onClick={this.login}>Login</button>
-            </form>
+            <div>
+                <h1>{this.state.email}</h1>
+                {this.state.userStatus === true ?
+                    (<Loginform
+                        handleInputChange={this.handleInputChange}
+                        login={this.login}
+                        handleStatus={this.handleStatus}
+                    />)
+                    : (<Signupform
+                        handleFormSubmit={this.handleFormSubmit}
+                        handleInputChange={this.handleInputChange}
+                    />)}
+            </div>
+
+
+            // <form>
+            //     <p>Username: {this.state.email}</p>
+            //     <p>Password: {this.state.password}</p>
+            //     <input
+            //         type="text"
+            //         placeholder="email"
+            //         name="email"
+            //         value={this.state.email}
+            //         onChange={this.handleInputChange}
+            //     />
+            //     <input
+            //         type="password"
+            //         placeholder="Password"
+            //         name="password"
+            //         value={this.state.password}
+            //         onChange={this.handleInputChange}
+            //     />
+            //     <button onClick={this.handleFormSubmit}>Signup</button>
+            //     <button onClick={this.login}>Login</button>
+            // </form>
 
         );
     }

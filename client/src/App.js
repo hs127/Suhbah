@@ -51,7 +51,10 @@ class App extends Component {
     return (
       // <Router>
       <div>
-        {this.state.user ? (<><Header /> <Homepage /> </>) : (<Signup />)}
+        {this.state.user ?
+          (<><Header /> <Homepage /> </>)
+          :
+          (<Signup />)}
         {/* <Header />
           <Navbar />
           <Wrapper>
