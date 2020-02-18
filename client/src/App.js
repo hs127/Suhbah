@@ -51,8 +51,9 @@ class App extends Component {
     return (
       // <Router>
       <div>
+        <Header />
         {this.state.user ?
-          (<><Header /> <Homepage /> </>)
+          (<> <Homepage /> </>)
           :
           (<Signup />)}
         {/* <Header />

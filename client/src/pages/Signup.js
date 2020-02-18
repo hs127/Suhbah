@@ -19,7 +19,7 @@ class Signup extends Component {
     // }
 
     handleInputChange = e => {
-        console.log(this.state.email);
+        // console.log(this.state.email);
         this.setState({ [e.target.name]: e.target.value });
 
     };
@@ -77,10 +77,10 @@ class Signup extends Component {
     ///I want the login form to render when the user selects the login button 
 
     render() {
-        console.log(this.state.userStatus);
+        // console.log(this.state.userStatus);
         return (
             <div>
-                <h1>{this.state.email}</h1>
+
                 {this.state.userStatus === true ?
                     (<Loginform
                         handleInputChange={this.handleInputChange}

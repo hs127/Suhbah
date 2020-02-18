@@ -12,7 +12,7 @@ function Signupform(props) {
                 <label htmlFor="email">Email: </label>
                 <h2>{props.email}</h2>
 
-                <input
+                <input className="forminfo"
                     type="text"
                     name="email"
                     value={props.email}
@@ -20,7 +20,7 @@ function Signupform(props) {
                 />
                 <label htmlFor="password">Password: </label>
 
-                <input
+                <input className="forminfo"
                     type="password"
                     name="password"
                     value={props.password}
