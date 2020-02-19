@@ -25,6 +25,7 @@ class Signup extends Component {
     };
 
     //for login button
+    //Need the API.updateLogin function so that loggedIn column can change to true 
     login = e => {
         e.preventDefault();
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -56,7 +57,8 @@ class Signup extends Component {
             console.log(u.user.email);
             API.createUser({
                 uid: u.user.uid,
-                email: u.user.email
+                email: u.user.email,
+                loggedIn: true
             }).then(data => console.log(data))
 
 

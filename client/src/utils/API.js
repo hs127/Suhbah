@@ -5,11 +5,11 @@ import axios from "axios";
 export default {
     createUser: function (userData) {
         return axios.post("/api/signup", userData)
+    },
+    updateLogIn: function (id) {
+        return axios.put("/api/signup/" + id);
     }
     //,
-    // getSavedBooks: function () {
-    //     return axios.get("/api/books");
-    // },
     // deleteBook: function (id) {
     //     return axios.delete("/api/books/" + id)
     // }

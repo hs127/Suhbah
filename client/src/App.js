@@ -53,7 +53,7 @@ class App extends Component {
       <div>
         <Header />
         {this.state.user ?
-          (<> <Homepage /> </>)
+          (<> <Homepage dataFromParent={this.state.user} /> </>)
           :
           (<Signup />)}
         {/* <Header />

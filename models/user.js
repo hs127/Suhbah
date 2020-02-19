@@ -10,7 +10,8 @@ const userSchema = new Schema({
     password: { type: String },
     kids: { type: Boolean, default: false },
     smoke: { type: Boolean, default: false },
-    age: { type: String }
+    age: { type: String },
+    loggedIn: { type: Boolean, default: false }
 });
 
 
