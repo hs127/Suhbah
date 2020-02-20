@@ -28,8 +28,10 @@ class Signup extends Component {
     //Need the API.updateLogin function so that loggedIn column can change to true 
     login = e => {
         e.preventDefault();
+        // console.log(data);
+        console.log("login function");
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then((u) => { console.log(u); })
+            .then((u) => { API.updateLogIntwo(u.user.uid).then(data => console.log(data)).catch(err => console.log(err)); })
             .catch((error) => {
                 if (error.code === "auth/wrong-password") {
                     alert("auth/wrong-password")
@@ -39,6 +41,7 @@ class Signup extends Component {
                 }
 
             });
+
     }
 
     // When the form is submitted, prevent the default event and alert the username and password
@@ -79,7 +82,7 @@ class Signup extends Component {
     ///I want the login form to render when the user selects the login button 
 
     render() {
-        // console.log(this.state.userStatus);
+        // console.log(this.props.dataFromParentt);
         return (
             <div>
 

@@ -24,4 +24,15 @@ router.put("/signup/:id", function (req, res) {
         .catch(err => res.status(422).json(err));
 });
 
+router.put("/login/:id", function (req, res) {
+    console.log("Inside login put");
+    console.log(req.params.id);
+    db.User
+        .findOneAndUpdate({ uid: req.params.id }, {
+            $set: { loggedIn: true }
+        })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+});
+
 module.exports = router;

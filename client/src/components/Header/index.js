@@ -2,7 +2,7 @@ import React from "react";
 import { Jumbotron, Container } from 'react-bootstrap';
 
 function Header(props) {
-    console.log(props.data);
+    console.log(props);
 
     return (
         <Jumbotron fluid className="background">

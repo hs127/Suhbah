@@ -8,7 +8,11 @@ export default {
     },
     updateLogIn: function (id) {
         return axios.put("/api/signup/" + id);
+    },
+    updateLogIntwo: function (id) {
+        return axios.put("/api/login/" + id);
     }
+
     //,
     // deleteBook: function (id) {
     //     return axios.delete("/api/books/" + id)
