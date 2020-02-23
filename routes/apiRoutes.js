@@ -35,4 +35,14 @@ router.put("/login/:id", function (req, res) {
         .catch(err => res.status(422).json(err));
 });
 
+router.put("/profile/:id", function (req, res) {
+    console.log("Inside profile put");
+    console.log(req.params.id);
+    console.log(req.body);
+    db.User
+        .findOneAndUpdate({ uid: req.params.id }, req.body)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+});
+
 module.exports = router;

@@ -4,10 +4,6 @@ import fire from "../config/Fire";
 import Signupform from "../components/Signup";
 import Loginform from "../components/Loginform";
 
-
-
-// this.handleSave = this.handleSave.bind(this);
-
 class Signup extends Component {
     state = {
         email: "",

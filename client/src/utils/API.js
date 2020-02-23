@@ -11,6 +11,9 @@ export default {
     },
     updateLogIntwo: function (id) {
         return axios.put("/api/login/" + id);
+    },
+    updateProfile: function (id, profileData) {
+        return axios.put("/api/profile/" + id, profileData);
     }
 
     //,
