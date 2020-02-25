@@ -24,6 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     this.authListener();
+
   }
   // var content;
   // if (userloggin) {

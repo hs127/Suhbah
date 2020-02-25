@@ -13,7 +13,16 @@ const userSchema = new Schema({
     pets: { type: Boolean, default: false },
     placeInd: { type: Boolean, default: false },
     loggedIn: { type: Boolean, default: false },
-    practicing: { type: String }
+    submitProfile: { type: Boolean, default: false },
+    practicing: { type: String },
+    home: [
+        {
+            // Store ObjectIds in the array
+            type: Schema.Types.ObjectId,
+            // The ObjectIds will refer to the ids in the Note model
+            ref: "Home"
+        }
+    ]
 });
 
 

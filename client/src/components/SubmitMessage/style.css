@@ -1,0 +1,19 @@
+.SignupForm {
+    margin-left: 10%; 
+    background-color: lightgray;
+    width:80%; 
+    text-align:center; 
+    padding-bottom:20px; 
+    
+}
+
+label {
+    color: teal;
+    font-weight: bold;
+}
+
+.forminfo {
+    height: 30px; 
+    width: 15%; 
+}
+

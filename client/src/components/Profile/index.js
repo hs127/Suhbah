@@ -88,7 +88,7 @@ function Profile(props) {
           <Select
             native
             placeholder="Smoker?"
-            value={props.smoker}
+            value={props.smoke}
             onChange={props.handleInputChange}
             inputProps={{
               name: 'smoke'
@@ -138,23 +138,23 @@ function Profile(props) {
           <InputLabel htmlFor="age-native-simple">Have a Place?</InputLabel>
           <Select
             native
-            placeholder="Place?"
-            value={props.pets}
+            placeholder="Place"
+            value={props.placeInd}
             onChange={props.handleInputChange}
             inputProps={{
               name: 'placeInd'
             }}
           >
-            <option value="" />
+            <option />
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </Select>
         </FormControl>
         <br />
-        <button onClick={(e) => { props.handleFormSubmit(e) }}>Click Me!</button>
+        <Button onClick={(e) => { props.handleFormSubmit(e) }}>Submit</Button>
         {/* <Button onClick={props.handleFormSubmit} variant="contained">Submit Profile</Button> */}
 
-        <Button onClick={props.handleUpdate} variant="contained">Update Profile</Button>
+        {/* <Button onClick={props.handleUpdate} variant="contained">Update Profile</Button> */}
       </React.Fragment>
 
       {/* </MuiThemeProvider> */}
