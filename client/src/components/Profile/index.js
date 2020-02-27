@@ -18,7 +18,7 @@ const accent = teal['300']; // #E040FB
 function Profile(props) {
 
   return (
-    <div>
+    <div className="formbody">
 
       {/* <MuiThemeProvider > */}
       <h1> Profile Section</h1>
@@ -150,6 +150,7 @@ function Profile(props) {
             <option value="noPlace">No</option>
           </Select>
         </FormControl>
+        <br />
         <br />
         <Button onClick={(e) => { props.handleFormSubmit(e) }}>Submit</Button>
         {/* <Button onClick={props.handleFormSubmit} variant="contained">Submit Profile</Button> */}

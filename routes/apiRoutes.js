@@ -8,6 +8,15 @@ router.post("/signup", function (req, res) {
 });
 
 router.get("/users", function (req, res) {
+    console.log(req.body);
+    console.log(req.params);
+    db.User.find({})
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+});
+
+router.get("/roomates", function (req, res) {
+    console.log(req.body);
     db.User.find({})
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));

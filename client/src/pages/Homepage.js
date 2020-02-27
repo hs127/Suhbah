@@ -9,6 +9,7 @@ import Listing from "../components/ListHome";
 import HomeSearch from "../components/HomeSearch";
 import SubmitMessage from "../components/SubmitMessage";
 import ErrorMessage from "../components/ErrorMessage";
+import RoomateSearch from "../components/RoomateSearch";
 import fire from "../config/Fire";
 
 
@@ -45,8 +46,13 @@ class Homepage extends Component {
         submitHousing: false,
         redirect: false,
         submitProfile: false,
+        currentUser: [],
         roomates: [],
-        currentUser: []
+        query: {
+            gender: "",
+            homeType: "",
+            state: ""
+        }
     };
 
     // getRoomate = () => {
@@ -56,7 +62,7 @@ class Homepage extends Component {
 
     componentDidMount() {
         // this.searchRoomates();
-        // this.currentuser(this.props.dataFromParent.uid);
+        this.currentuserfunction();
         console.log(this.props.dataFromParent.uid)
         this.searchRoomates();
     }
@@ -104,6 +110,7 @@ class Homepage extends Component {
             smoke: this.state.smoke,
             age: this.state.age,
             pets: this.state.pets,
+            occupation: this.state.occupation,
             placeInd: this.state.placeInd,
             practicing: this.state.practicing,
             submitProfile: true
@@ -157,20 +164,52 @@ class Homepage extends Component {
 
     };
 
+
+
     handleUpdate = e => {
         e.preventDefault();
         alert("button functiionality in progress");
     }
 
 
+    // 7: ROOMATESERACH CODE 
+    // this.setState({
+    //         user: {
+    //             ...this.state.user,
+    //             [event.currentTarget.name]: event.currentTarget.value
+    //         }
+    //     });
+    handleSearchInputChange = e => {
+        const { name, value } = e.target;
+        this.setState(prevState => ({
+            query: { ...prevState.query, [name]: value }
+        }))
+        console.log(this.state.query);
+    }
+
+    handleRoomateSearch = (e) => {
+        e.preventDefault();
+        const { name, value } = e.target;
+        console.log("roomate SEarch function");
+        this.setState(prevState => ({
+            query: { ...prevState.query, [name]: value }
+        }));
+        this.searchRoomates();
+        console.log(this.state.query);
+    }
+
     searchRoomates = () => {
-        console.log("searchRoomate");
-        API.getRoomates()
-            .then(res => this.setState({ roomates: res.data }))
-            .then(data => console.log(this.state.roomates))
-            .catch(err => console.log(err));
+        console.log("searchRoomate function");
+        API.getRoomates({
+            gender: this.state.query.gender,
+            homeType: this.state.query.homeType,
+            state: this.state.query.state
+        }).then(res => this.setState({ roomates: res.data }))
+            .then(data => console.log(data)).catch(err => console.log(err));
+
 
     }
+    //  ROOMATESERACH CODE 
 
     //handleInputchnage 
     //the form details 
@@ -184,9 +223,18 @@ class Homepage extends Component {
 
     renderPage = () => {
         console.log("render function");
+        // console.log(this.state.query);
         // console.log(this.state.submitHousing);
         if (this.state.currentPage === "Match") {
-            return (<Match roomates={this.state.roomates} />);
+            return (
+                <>
+                    <RoomateSearch
+                        query={this.state.query}
+                        handleSearchInputChange={this.handleSearchInputChange}
+                        handleRoomateSearch={(e) => this.handleRoomateSearch(e)}
+                    />
+                    <Match roomates={this.state.roomates} />
+                </>);
         }
         else if (this.state.currentPage === "Profile" && this.state.currentUser.length > 0 && this.state.currentUser[0].submitProfile) {
             return (<SubmitMessage username={this.state.username} />);
@@ -258,7 +306,7 @@ class Homepage extends Component {
         //     console.log("called");
         //     return <SubmitMessage />;
         // }
-        console.log(this.state.currentUser);
+        // console.log(this.state.currentUser);
         return (
             <div>
                 <Navbar
@@ -266,7 +314,6 @@ class Homepage extends Component {
                     handlePageChange={this.handlePageChange}
                     logout={() => this.logout(this.props.dataFromParent.uid)}
                 />
-
                 {this.renderPage()}
 
 

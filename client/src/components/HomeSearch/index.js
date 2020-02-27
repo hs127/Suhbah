@@ -32,13 +32,12 @@ function HomeSearch(props) {
             name: 'homeType'
           }}
         >
-          <option value="" />
           <option value="apartment">Apartment</option>
           <option value="house">House</option>
           <option value="condo">Condo</option>
           <option value="townhouse">Townhouse</option>
-          <option value="townhouse">Other</option>
-          <option value="townhouse">No Preference</option>
+          <option value="other">Other</option>
+          <option value="nopreference">No Preference</option>
         </Select>
       </FormControl>
       <br />
