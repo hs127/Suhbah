@@ -146,8 +146,8 @@ function Profile(props) {
             }}
           >
             <option />
-            <option value={true}>Yes</option>
-            <option value={false}>No</option>
+            <option value="havePlace">Yes</option>
+            <option value="noPlace">No</option>
           </Select>
         </FormControl>
         <br />

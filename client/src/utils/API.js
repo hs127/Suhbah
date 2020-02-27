@@ -17,10 +17,10 @@ export default {
         return axios.put("/api/profile/" + id, profileData);
     },
     listHome: function (id, homeData) {
-        return axios.post("/api/list/" + id, homeData)
+        return axios.put("/api/list/" + id, homeData)
     },
     getRoomates: function () {
-        return axios.get("/api/roomate")
+        return axios.get("/api/users")
         // },
         // getCurrentUser: function (id) {
         //     return axios.get("/api/users/" + id);

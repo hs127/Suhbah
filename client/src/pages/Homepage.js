@@ -44,7 +44,9 @@ class Homepage extends Component {
         addComments: "",
         submitHousing: false,
         redirect: false,
-        roomates: []
+        submitProfile: false,
+        roomates: [],
+        currentUser: []
     };
 
     // getRoomate = () => {
@@ -54,13 +56,26 @@ class Homepage extends Component {
 
     componentDidMount() {
         // this.searchRoomates();
+        // this.currentuser(this.props.dataFromParent.uid);
+        console.log(this.props.dataFromParent.uid)
+        this.searchRoomates();
     }
 
-    currentuser = id => {
-        API.getCurrentUser(id)
-            .then(res => console.log(res))
+    componentDidUpdate() {
+        // this.currentuserfunction();
+        // this.searchRoomates();
+
+    }
+
+
+    // //currentuser willl update the state variables so that the render logi 
+    currentuserfunction = () => {
+        console.log("currentUser call");
+        API.getCurrentUser(this.props.dataFromParent.uid)
+            // .then(res => res.data[0].kids)
+            .then(res => this.setState({ currentUser: res.data }))
             // .then(data => {
-            //     console.log(this.state.result[0].volumeInfo.title);
+            //     console.log(this.state.kids);
             // })
             .catch(err => console.log(err));
     }
@@ -72,7 +87,7 @@ class Homepage extends Component {
 
     handleInputChange = e => {
         //should manage all fiel forms 
-        console.log(e.target.value);
+        // console.log(e.target.value);
         this.setState({ [e.target.name]: e.target.value });
     }
 
@@ -82,6 +97,7 @@ class Homepage extends Component {
         e.preventDefault();
         console.log("Profile submitted");
         this.setState({ [e.target.name]: e.target.value });
+        this.setState({ submitProfile: true });
         API.updateProfile(uid, {
             username: this.state.username,
             kids: this.state.kids,
@@ -100,13 +116,13 @@ class Homepage extends Component {
     //     this.setState({ [e.target.name]: "" })
     // }
 
-    handleListingSubmit = e => {
+    handleListingSubmit = (e, uid) => {
         e.preventDefault();
         console.log("Listing Submitted");
 
         this.setState({ [e.target.name]: e.target.value });
         this.setState({ submitHousing: true });
-        API.listHome({
+        API.listHome(uid, {
             listingName: this.state.listingName,
             rentPay: this.state.rentPay,
             rentDuration: this.state.rentDuration,
@@ -139,7 +155,6 @@ class Homepage extends Component {
             submitHousing: true
         }).then(data => console.log(data));
 
-
     };
 
     handleUpdate = e => {
@@ -149,11 +164,11 @@ class Homepage extends Component {
 
 
     searchRoomates = () => {
-        API.getRoomates().then(data => {
-            console.log(data);
-        })
+        console.log("searchRoomate");
+        API.getRoomates()
+            .then(res => this.setState({ roomates: res.data }))
+            .then(data => console.log(this.state.roomates))
             .catch(err => console.log(err));
-
 
     }
 
@@ -169,32 +184,43 @@ class Homepage extends Component {
 
     renderPage = () => {
         console.log("render function");
-        console.log(this.state.submitHousing);
+        // console.log(this.state.submitHousing);
         if (this.state.currentPage === "Match") {
-            return (<Match />);
+            return (<Match roomates={this.state.roomates} />);
+        }
+        else if (this.state.currentPage === "Profile" && this.state.currentUser.length > 0 && this.state.currentUser[0].submitProfile) {
+            return (<SubmitMessage username={this.state.username} />);
+        }
+        else if (this.state.currentPage === "Profile" && !!this.state.submitProfile) {
+            return (<SubmitMessage username={this.state.username} />);
         }
         else if (this.state.currentPage === "Profile") {
             return (<Profile
                 handleInputChange={this.handleInputChange}
                 handleFormSubmit={(e) => this.handleFormSubmit(e, this.props.dataFromParent.uid)}
                 handleUpdate={this.handleUpdate}
-            />);
+            />
+            );
         }
-
-        else if (this.state.currentPage === "Housing" && this.state.submitHousing === true) {
+        else if (this.state.currentPage === "Housing" && this.state.currentUser.length > 0 && this.state.currentUser[0].submitHousing) {
             return (<SubmitMessage username={this.state.username} />);
         }
-
+        else if (this.state.currentPage === "Housing" && !!this.state.submitHousing) {
+            return (<SubmitMessage username={this.state.username} />);
+        }
+        // else if (this.state.currentPage === "Housing" && this.state.currentUser[0].placeInd != null) {
+        //     return (<ErrorMessage handlePageChange={this.handlePageChange} />);
+        // }
         else if (this.state.currentPage === "Housing" && this.state.placeInd === "") {
             return (<ErrorMessage handlePageChange={this.handlePageChange} />);
         }
-        else if (this.state.currentPage === "Housing" && this.state.placeInd === "true") {
+        else if (this.state.currentPage === "Housing" && this.state.placeInd === "havePlace") {
             return (<Listing
                 handleInputChange={this.handleInputChange}
-                handleListingSubmit={this.handleListingSubmit}
+                handleListingSubmit={(e) => this.handleListingSubmit(e, this.props.dataFromParent.uid)}
             />);
         }
-        else if (this.state.currentPage === "Housing" && this.state.placeInd === "false") {
+        else if (this.state.currentPage === "Housing" && this.state.placeInd === "noPlace") {
             return (
                 <HomeSearch
                     handleInputChange={this.handleInputChange}
@@ -203,7 +229,7 @@ class Homepage extends Component {
             );
         }
         else {
-            return (<Match />);
+            return (<Match roomates={this.state.roomates} />);
         }
     };
 
@@ -225,13 +251,14 @@ class Homepage extends Component {
 
 
     render() {
-        console.log(this.state.placeInd);
-        console.log(this.props.dataFromParent.uid);
-        const { redirect } = this.state;
+        // console.log(this.state.placeInd);
+        // console.log(this.props.dataFromParent.uid);
+        // const { redirect } = this.state;
         // if (redirect) {
         //     console.log("called");
         //     return <SubmitMessage />;
         // }
+        console.log(this.state.currentUser);
         return (
             <div>
                 <Navbar
@@ -241,7 +268,6 @@ class Homepage extends Component {
                 />
 
                 {this.renderPage()}
-                {this.currentuser(this.props.dataFromParent.uid)}
 
 
 

@@ -148,7 +148,7 @@ function Listing(props) {
       />
       <br />
 
-      <Button onClick={props.handleListingSubmit} variant="contained">Update Profile</Button>
+      <Button onClick={(e) => props.handleListingSubmit(e)} variant="contained">Update Profile</Button>
     </div>
 
   );

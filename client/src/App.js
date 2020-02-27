@@ -7,13 +7,15 @@ import Signup from "./pages/Signup";
 import Header from "./components/Header";
 // import Navbar from "./components/Navbar";
 // import Wrapper from "./components/Wrapper";
-import fire from './config/Fire'
+import fire from './config/Fire';
+import API from "./utils/API";
 
 class App extends Component {
 
 
   state = {
     user: []
+    // currentUser: []
   }
 
 
@@ -25,6 +27,24 @@ class App extends Component {
   componentDidMount() {
     this.authListener();
 
+  }
+
+  componentDidUpdate() {
+    // this.currentuser(this.state.user.uid);
+
+  }
+
+
+  //currentuser willl update the state variables so that the render logi 
+  currentuser = id => {
+    console.log("currentUser call");
+    API.getCurrentUser(id)
+      // .then(res => res.data[0].kids)
+      .then(res => this.setState({ currentUser: res.data }))
+      // .then(data => {
+      //     console.log(this.state.kids);
+      // })
+      .catch(err => console.log(err));
   }
   // var content;
   // if (userloggin) {
@@ -40,6 +60,8 @@ class App extends Component {
       if (user) {
         this.setState({ user });
         localStorage.setItem("user", user.uid);
+        // this.currentuser(this.state.user.uid);
+
       }
       else {
         this.setState({ user: null });
