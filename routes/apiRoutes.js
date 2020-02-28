@@ -19,7 +19,6 @@ router.get("/roomates", function (req, res) {
     console.log(req.query.userSearch);
     console.log(JSON.parse(req.query.userSearch).gender);
     let userSearch = JSON.parse(req.query.userSearch);
-
     db.User.find({
         gender: userSearch.gender,
         placeInd: userSearch.placeInd
