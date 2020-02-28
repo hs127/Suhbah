@@ -34,7 +34,9 @@ class Homepage extends Component {
         occupation: "",
         placeInd: "",
         listingName: "",
-        rentPay: "",
+        lifeStyle: "",
+        dietary: "",
+        rentPay: 0,
         rentDuration: "",
         homeType: "",
         moveInDate: "",
@@ -50,7 +52,7 @@ class Homepage extends Component {
         roomates: [],
         query: {
             gender: "",
-            homeType: "",
+            placeInd: "",
             state: ""
         }
     };
@@ -61,15 +63,15 @@ class Homepage extends Component {
 
 
     componentDidMount() {
-        // this.searchRoomates();
-        this.currentuserfunction();
-        console.log(this.props.dataFromParent.uid)
         this.searchRoomates();
+        // this.currentuserfunction();
+        console.log(this.props.dataFromParent.uid)
+        // this.searchRoomates();
     }
 
     componentDidUpdate() {
         // this.currentuserfunction();
-        // this.searchRoomates();
+        //  this.searchRoomates();
 
     }
 
@@ -78,22 +80,28 @@ class Homepage extends Component {
     currentuserfunction = () => {
         console.log("currentUser call");
         API.getCurrentUser(this.props.dataFromParent.uid)
-            // .then(res => res.data[0].kids)
-            .then(res => this.setState({ currentUser: res.data }))
-            // .then(data => {
-            //     console.log(this.state.kids);
-            // })
+            .then(info => {
+                console.log(info)
+                return info.data[0].kids;
+            })
+            // .then(res => this.setState({ currentUser: res.data }))
+            .then(res => this.setState({ kids: res }))
+            .then(data => {
+                console.log(this.state.kids);
+            })
             .catch(err => console.log(err));
     }
 
 
     handlePageChange = page => {
         this.setState({ currentPage: page });
+        this.currentuserfunction();
     };
 
     handleInputChange = e => {
         //should manage all fiel forms 
         // console.log(e.target.value);
+        e.preventDefault();
         this.setState({ [e.target.name]: e.target.value });
     }
 
@@ -110,6 +118,7 @@ class Homepage extends Component {
             smoke: this.state.smoke,
             age: this.state.age,
             pets: this.state.pets,
+            gender: this.state.gender,
             occupation: this.state.occupation,
             placeInd: this.state.placeInd,
             practicing: this.state.practicing,
@@ -117,7 +126,7 @@ class Homepage extends Component {
         }).then(data => console.log(data))
         //add empty strings 
         // resetFormFilds(e.target.name);
-
+        this.currentuserfunction();
     };
     // resetFormFilds(names) {
     //     this.setState({ [e.target.name]: "" })
@@ -172,14 +181,10 @@ class Homepage extends Component {
     }
 
 
-    // 7: ROOMATESERACH CODE 
-    // this.setState({
-    //         user: {
-    //             ...this.state.user,
-    //             [event.currentTarget.name]: event.currentTarget.value
-    //         }
-    //     });
+    // 7: Start ROOMATESERACH CODE 
+
     handleSearchInputChange = e => {
+        e.preventDefault();
         const { name, value } = e.target;
         this.setState(prevState => ({
             query: { ...prevState.query, [name]: value }
@@ -202,14 +207,12 @@ class Homepage extends Component {
         console.log("searchRoomate function");
         API.getRoomates({
             gender: this.state.query.gender,
-            homeType: this.state.query.homeType,
-            state: this.state.query.state
+            placeInd: this.state.query.placeInd
+            // state: this.state.query.state
         }).then(res => this.setState({ roomates: res.data }))
             .then(data => console.log(data)).catch(err => console.log(err));
-
-
     }
-    //  ROOMATESERACH CODE 
+    // 7: End ROOMATESERACH CODE
 
     //handleInputchnage 
     //the form details 
@@ -315,8 +318,6 @@ class Homepage extends Component {
                     logout={() => this.logout(this.props.dataFromParent.uid)}
                 />
                 {this.renderPage()}
-
-
 
             </div>
 

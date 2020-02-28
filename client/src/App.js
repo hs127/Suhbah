@@ -56,7 +56,7 @@ class App extends Component {
   //have lifecycle componenet compmount here to check for authentication 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
-      console.log(user);
+      // console.log(user);
       if (user) {
         this.setState({ user });
         localStorage.setItem("user", user.uid);

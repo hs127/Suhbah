@@ -13,30 +13,25 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Grid from '@material-ui/core/Grid';
 
 
-//sign up Modal 
-
 function RoomateSearch(props) {
 
   return (
     <div>
       <Grid container>
         <FormControl>
-          <InputLabel htmlFor="age-native-simple">Looking for</InputLabel>
+          <InputLabel htmlFor="age-native-simple">Has a Place?</InputLabel>
           <Select
             native
-            placeholder="Select Residental Type"
-            value={props.query.homeType}
+            placeholder="Place"
+            value={props.query.placeInd}
             onChange={props.handleSearchInputChange}
             inputProps={{
-              name: 'homeType'
+              name: 'placeInd'
             }}
           >
-            <option value="apartment">Apartment</option>
-            <option value="house">House</option>
-            <option value="condo">Condo</option>
-            <option value="townhouse">Townhouse</option>
-            <option value="other">Other</option>
-            <option value="nopreference">No Preference</option>
+            <option />
+            <option value="havePlace">Yes</option>
+            <option value="noPlace">No</option>
           </Select>
         </FormControl>
         <form noValidate>

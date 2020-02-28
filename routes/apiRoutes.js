@@ -12,12 +12,19 @@ router.get("/users", function (req, res) {
     console.log(req.params);
     db.User.find({})
         .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err));
+        .catch(err => res.status(422).jsosn(err));
 });
 
 router.get("/roomates", function (req, res) {
-    console.log(req.body);
-    db.User.find({})
+    console.log(req.query.userSearch);
+    console.log(JSON.parse(req.query.userSearch).gender);
+    let userSearch = JSON.parse(req.query.userSearch);
+
+    db.User.find({
+        gender: userSearch.gender,
+        placeInd: userSearch.placeInd
+        // state: req.params.state
+    })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
 });

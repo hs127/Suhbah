@@ -7,7 +7,7 @@ import "./style.css";
 function Loginform(props) {
 
   return (
-    <div className="SignupForm">
+    <div align="center" className="SignupForm">
       <h1>Login Form</h1>
       <form>
         <label htmlFor="email">Email:</label>

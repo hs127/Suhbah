@@ -19,7 +19,7 @@ app.use("/api", apiRoutes);
 
 // Connect to the Mongo DB
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/suhbah"
+  process.env.MONGODB_URI || "mongodb://user:password1@ds027215.mlab.com:27215/heroku_2p3cn2tz"
 );
 // Send every request to the React app
 // Define any API routes before this runs

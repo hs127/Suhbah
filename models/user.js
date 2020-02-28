@@ -13,6 +13,7 @@ const userSchema = new Schema({
     occupation: { type: String },
     pets: { type: Boolean, default: false },
     placeInd: { type: String },
+    gender: { type: String },
     loggedIn: { type: Boolean, default: false },
     submitProfile: { type: Boolean, default: false },
     practicing: { type: String },

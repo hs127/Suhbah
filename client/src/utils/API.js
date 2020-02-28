@@ -20,16 +20,16 @@ export default {
         return axios.put("/api/list/" + id, homeData);
     },
     getRoomates: function (userSearch) {
-        return axios.get("/api/roomates", userSearch);
-        // },
-        // getCurrentUser: function (id) {
-        //     return axios.get("/api/users/" + id);
+        console.log(userSearch);
+        return axios.get("/api/roomates", { params: { userSearch } });
+    },
+    getCurrentUser: function (id) {
+        return axios.get("/api/users/" + id);
     },
     //this returns the current user data and it's homedeatils post associated with it 
-    getCurrentUser: function (id) {
-        return axios.get("/api/userextradeatils/" + id);
-    }
-
+    // getCurrentUser: function (id) {
+    //     return axios.get("/api/userextradeatils/" + id);
+    // }
     //,
     // deleteBook: function (id) {
     //     return axios.delete("/api/books/" + id)
