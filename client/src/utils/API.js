@@ -26,6 +26,9 @@ export default {
     getCurrentUser: function (id) {
         return axios.get("/api/users/" + id);
     },
+    getDefaultRoomates: function () {
+        return axios.get("/api/defaultroomates");
+    }
     //this returns the current user data and it's homedeatils post associated with it 
     // getCurrentUser: function (id) {
     //     return axios.get("/api/userextradeatils/" + id);

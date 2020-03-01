@@ -28,6 +28,15 @@ router.get("/roomates", function (req, res) {
         .catch(err => res.status(422).json(err));
 });
 
+router.get("/defaultroomates", function (req, res) {
+    // console.log(req.query.userSearch);
+    // console.log(JSON.parse(req.query.userSearch).gender);
+    // let userSearch = JSON.parse(req.query.userSearch);
+    db.User.find({})
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+});
+
 router.get("/users/:id", function (req, res) {
     db.User.find({ uid: req.params.id })
         .then(dbModel => res.json(dbModel))

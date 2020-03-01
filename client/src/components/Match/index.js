@@ -8,7 +8,7 @@ function Match(props) {
   return (
     <div>
       {!props.roomates.length ? (<h1 align="center" >No Matches</h1>) :
-        (<div> {props.roomates.map((data, i) => (
+        (<div className="roomateCard"> {props.roomates.map((data, i) => (
           <RoomateCard
             id={data.uid}
             key={data.i}

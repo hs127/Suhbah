@@ -4,11 +4,23 @@ import fire from "../config/Fire";
 import Signupform from "../components/Signup";
 import Loginform from "../components/Loginform";
 
+const emailRegex = RegExp(
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+);
+
 class Signup extends Component {
     state = {
+        firstName: null,
+        lastName: null,
         email: "",
         password: "",
-        userStatus: true
+        userStatus: true,
+        formErrors: {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: ""
+        }
     };
     // componentDidMount() {
 
@@ -17,6 +29,33 @@ class Signup extends Component {
     handleInputChange = e => {
         // console.log(this.state.email);
         this.setState({ [e.target.name]: e.target.value });
+
+        const { name, value } = e.target;
+        let formErrors = { ...this.state.formErrors };
+
+        switch (name) {
+            case "firstName":
+                formErrors.firstName =
+                    value.length < 3 ? "minimum 3 characaters required" : "";
+                break;
+            case "lastName":
+                formErrors.lastName =
+                    value.length < 3 ? "minimum 3 characaters required" : "";
+                break;
+            case "email":
+                formErrors.email = emailRegex.test(value)
+                    ? ""
+                    : "invalid email address";
+                break;
+            case "password":
+                formErrors.password =
+                    value.length < 6 ? "minimum 6 characaters required" : "";
+                break;
+            default:
+                break;
+        }
+
+        this.setState({ formErrors, [name]: value }, () => console.log(this.state));
 
     };
 
@@ -45,8 +84,15 @@ class Signup extends Component {
     handleStatus = event => {
         event.preventDefault();
         console.log("handle Status clicked");
-        console.log(event.target.name);
-        this.setState({ [event.target.name]: false });
+        console.log(event.target.value);
+
+        if (this.state.userStatus) {
+            this.setState({ [event.target.name]: false });
+        }
+        else {
+            this.setState({ [event.target.name]: true });
+        }
+
 
     };
     //for signup button
@@ -87,10 +133,13 @@ class Signup extends Component {
                         handleInputChange={this.handleInputChange}
                         login={this.login}
                         handleStatus={this.handleStatus}
+                        formErrors={this.state.formErrors}
                     />)
                     : (<Signupform
                         handleFormSubmit={this.handleFormSubmit}
                         handleInputChange={this.handleInputChange}
+                        handleStatus={this.handleStatus}
+                        formErrors={this.state.formErrors}
                     />)}
             </div>
 

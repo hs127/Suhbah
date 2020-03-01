@@ -1,18 +1,10 @@
 /* Colors */
 /*
-Background: 
-light Sea Green #2EB7A9;
-
-sea blue: #05668D
-Metallic Seaweed : #028090
-Persian Green: #00A896
-Carrib green #02C39A
-Medium Sea Green: #4ABA6F
-Champagne #F1F0CC
-Ghostwhite: #F7F9F9
-Gun mental #2B2D42
-Tea Green: #BEE5BF
-Max Blue Green : #34D1BF
+dark blue: #476A6F
+light blue: #258EA6
+dark green: #519E8A
+medium green: #7EB09B
+light green: #A3C4BC
 */
 
 .wrapper {
@@ -22,7 +14,7 @@ Max Blue Green : #34D1BF
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #2EB7A9;
+  background-color: #258ea6;
 }
 
 .form-wrapper {
@@ -32,7 +24,7 @@ Max Blue Green : #34D1BF
   padding: 20px 40px;
   border-radius: 10px;
   box-shadow: 0px 10px 50px #555;
-  background-color: #F1F0CC;
+  background-color: #ffffff;
 }
 
 form {
@@ -44,41 +36,34 @@ form {
 .formh1 {
   text-align: center;
   width: 100%;
-  color: #02C39A;
-  /* color: #028090; */
+  color: #028090;
   font-weight: bold;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 label {
-  font-size: 1.2em;
+  font-size: 0.8em;
   margin-bottom: 0.25em;
-  color: #028090;
-  font-weight: normal;
+  color: #222;
+  font-weight: lighter;
 }
 
 input {
   padding: 10px 10px;
   border-radius: 5px;
   outline: none;
-  background-color: #F7F9F9;
-  border: 1px solid #02C39A;
+  border: 1px solid #cfcfcf;
 }
 
-
 input::placeholder {
-  font-size: 1.0em;
+  font-size: 1.2em;
   font-weight: lighter;
-  color: #02C39A;
+  color: #999;
 }
 
 input.error {
   border: 1px solid red;
-}
-
-#loginbutton {
-  font-weight: bolder; 
 }
 
 .errorMessage {
@@ -87,8 +72,16 @@ input.error {
   display: relative;
 }
 
+.firstName {
+  margin-right: 1%;
+}
 
+.lastName {
+  margin-left: 1%;
+}
 
+.firstName,
+.lastName,
 .email,
 .password {
   display: flex;
@@ -105,7 +98,17 @@ input.error {
 .password {
   width: 100%;
 }
+.firstName input:hover {
+ color: hsl(164, 2%, 47%);
+  background-color: #fff;
+  border: 2px solid #519e8a;
+}
 
+.lastName input:hover {
+ color: hsl(164, 2%, 47%);
+  background-color: #fff;
+  border: 2px solid #519e8a;
+}
 .email input:hover {
  color: hsl(164, 2%, 47%);
   background-color: #fff;
@@ -118,14 +121,15 @@ input.error {
   border: 2px solid #519e8a;
 }
 
-.login {
+
+.createAccount {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.login button {
+.createAccount button {
  background-color: #2EB7A9;
   color: #fff;
   border: 2px solid #F7F9F9;
@@ -138,10 +142,8 @@ input.error {
   margin-bottom: 0.25em;
 }
 
-.login button:hover {
+.createAccount button:hover {
    color: #519e8a;
- background-color:  #fff;
+   background-color:  #fff;
   border: 2px solid #028090;
 }
-
-

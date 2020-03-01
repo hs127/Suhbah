@@ -1,4 +1,14 @@
 .background {
-    background-color: #60E7A7;
+    background-color: #2EB7A9;
+    border-bottom: 5px solid #F1F0CC;
     font-weight: bold;
+    color: #F1F0CC;
+    margin: 0;
+    height: 200px;
+}
+
+h1 {
+    color: #F1F0CC;
+    font-weight:bold; 
+
 }

@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import API from "../utils/API";
-// import Profile from "./pages/Profile";
-import Navbar from "../components/Navbar";
-// import Wrapper from "../components/Wrapper";
-import Profile from "../components/Profile";
-import Match from "../components/Match";
-import Listing from "../components/ListHome";
-import HomeSearch from "../components/HomeSearch";
-import SubmitMessage from "../components/SubmitMessage";
-import ErrorMessage from "../components/ErrorMessage";
-import RoomateSearch from "../components/RoomateSearch";
-import fire from "../config/Fire";
+import API from "../../utils/API";
+import Navbar from "../../components/Navbar";
+import Wrapper from "../../components/Wrapper";
+import Profile from "../../components/Profile";
+import Match from "../../components/Match";
+import Listing from "../../components/ListHome";
+import HomeSearch from "../../components/HomeSearch";
+import SubmitMessage from "../../components/SubmitMessage";
+import ErrorMessage from "../../components/ErrorMessage";
+import RoomateSearch from "../../components/RoomateSearch";
+import "./homepage.css";
+import fire from "../../config/Fire";
+
 
 
 class Homepage extends Component {
@@ -63,10 +64,9 @@ class Homepage extends Component {
 
 
     componentDidMount() {
-        this.searchRoomates();
         // this.currentuserfunction();
         console.log(this.props.dataFromParent.uid)
-        // this.searchRoomates();
+        this.DefaultSearch();
     }
 
     componentDidUpdate() {
@@ -81,21 +81,27 @@ class Homepage extends Component {
         console.log("currentUser call");
         API.getCurrentUser(this.props.dataFromParent.uid)
             .then(info => {
-                console.log(info)
-                return info.data[0].kids;
+                console.log(info.data[0].placeInd)
+                var resData = {
+                    submitProfileStatus: info.data[0].submitProfile,
+                    submitHouseStatus: info.data[0].submitHousing,
+                    // placeIndicator: info.data[0].placeInd
+                }
+                return resData;
             })
             // .then(res => this.setState({ currentUser: res.data }))
-            .then(res => this.setState({ kids: res }))
-            .then(data => {
-                console.log(this.state.kids);
-            })
+            .then(res => this.setState({
+                submitProfile: res.submitProfileStatus,
+                submitHousing: res.submitHouseStatus,
+                // placeInd: res.placeIndicator
+            }))
             .catch(err => console.log(err));
     }
 
 
     handlePageChange = page => {
         this.setState({ currentPage: page });
-        this.currentuserfunction();
+
     };
 
     handleInputChange = e => {
@@ -126,7 +132,7 @@ class Homepage extends Component {
         }).then(data => console.log(data))
         //add empty strings 
         // resetFormFilds(e.target.name);
-        this.currentuserfunction();
+        // this.currentuserfunction();
     };
     // resetFormFilds(names) {
     //     this.setState({ [e.target.name]: "" })
@@ -173,8 +179,6 @@ class Homepage extends Component {
 
     };
 
-
-
     handleUpdate = e => {
         e.preventDefault();
         alert("button functiionality in progress");
@@ -182,6 +186,12 @@ class Homepage extends Component {
 
 
     // 7: Start ROOMATESERACH CODE 
+
+    DefaultSearch() {
+        API.getDefaultRoomates()
+            .then(res => this.setState({ roomates: res.data }))
+            .then(data => console.log(data)).catch(err => console.log(err));
+    }
 
     handleSearchInputChange = e => {
         e.preventDefault();
@@ -231,20 +241,21 @@ class Homepage extends Component {
         if (this.state.currentPage === "Match") {
             return (
                 <>
-                    <RoomateSearch
-                        query={this.state.query}
-                        handleSearchInputChange={this.handleSearchInputChange}
-                        handleRoomateSearch={(e) => this.handleRoomateSearch(e)}
-                    />
-                    <Match roomates={this.state.roomates} />
+                    <div>
+                        <RoomateSearch
+                            query={this.state.query}
+                            handleSearchInputChange={this.handleSearchInputChange}
+                            handleRoomateSearch={(e) => this.handleRoomateSearch(e)}
+                        />
+                        <Match roomates={this.state.roomates} />
+                    </div>
                 </>);
         }
-        else if (this.state.currentPage === "Profile" && this.state.currentUser.length > 0 && this.state.currentUser[0].submitProfile) {
+        //if nav = PRofile and submtPRofile is true show the Submit REview Message 
+        else if (this.state.currentPage === "Profile" && this.state.submitProfile) {
             return (<SubmitMessage username={this.state.username} />);
         }
-        else if (this.state.currentPage === "Profile" && !!this.state.submitProfile) {
-            return (<SubmitMessage username={this.state.username} />);
-        }
+        //if the nav = profile and submitPRofile is false show the profile coponene t
         else if (this.state.currentPage === "Profile") {
             return (<Profile
                 handleInputChange={this.handleInputChange}
@@ -253,24 +264,31 @@ class Homepage extends Component {
             />
             );
         }
-        else if (this.state.currentPage === "Housing" && this.state.currentUser.length > 0 && this.state.currentUser[0].submitHousing) {
+
+
+        //if nave == Housing and submit housing is true show submit message 
+
+        else if (this.state.currentPage === "Housing" && this.state.submitHousing) {
             return (<SubmitMessage username={this.state.username} />);
         }
-        else if (this.state.currentPage === "Housing" && !!this.state.submitHousing) {
-            return (<SubmitMessage username={this.state.username} />);
-        }
+
         // else if (this.state.currentPage === "Housing" && this.state.currentUser[0].placeInd != null) {
         //     return (<ErrorMessage handlePageChange={this.handlePageChange} />);
         // }
-        else if (this.state.currentPage === "Housing" && this.state.placeInd === "") {
+
+
+        //if the nav = Housing and if submitProfiel is false  & SubmitHousing is false 
+        else if (this.state.currentPage === "Housing" && !this.state.submitProfile || this.state.placeInd === "") {
             return (<ErrorMessage handlePageChange={this.handlePageChange} />);
         }
+        //if nave == Housing and submitPRfile is true and place="havePLace"
         else if (this.state.currentPage === "Housing" && this.state.placeInd === "havePlace") {
             return (<Listing
                 handleInputChange={this.handleInputChange}
                 handleListingSubmit={(e) => this.handleListingSubmit(e, this.props.dataFromParent.uid)}
             />);
         }
+        //if nave == Housing and submitPRfile is true and place="noPlace"
         else if (this.state.currentPage === "Housing" && this.state.placeInd === "noPlace") {
             return (
                 <HomeSearch
@@ -310,14 +328,21 @@ class Homepage extends Component {
         //     return <SubmitMessage />;
         // }
         // console.log(this.state.currentUser);
+        console.log(this.state.placeInd);
+        console.log(this.state.submitHousing);
+        console.log(this.state.submitProfile);
         return (
-            <div>
+
+            <div className="homepage">
+
                 <Navbar
                     currentPage={this.state.currentPage}
                     handlePageChange={this.handlePageChange}
                     logout={() => this.logout(this.props.dataFromParent.uid)}
                 />
+
                 {this.renderPage()}
+
 
             </div>
 
