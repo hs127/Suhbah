@@ -1,8 +1,4 @@
-import firebase from 'firebase';
-var keys = require("../../../keys");
-// require("dotenv").config();
-
-keys = {
+exports.config = {
     apiKey: process.env.apiKey,
     authDomain: process.env.authDomain,
     databaseURL: process.env.databaseURL,
@@ -11,6 +7,3 @@ keys = {
     messagingSenderId: process.env.messagingSenderId,
     appId: process.env.appId
 };
-
-const fire = firebase.initializeApp(keys);
-export default fire; 
