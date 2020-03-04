@@ -1,6 +1,9 @@
 import React from "react";
 import "./style.css";
 import RoomateCard from "../RoomateCard";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col'
 
 
 function Match(props) {
@@ -8,7 +11,7 @@ function Match(props) {
   return (
     <div>
       {!props.roomates.length ? (<h1 align="center" >No Matches</h1>) :
-        (<div className="roomateCard"> {props.roomates.map((data, i) => (
+        (<Col><div className="roomateCard"> {props.roomates.map((data, i) => (
           <RoomateCard
             id={data.uid}
             key={data.i}
@@ -21,7 +24,7 @@ function Match(props) {
             occupation={data.occupation}
           />
 
-        ))} </div>)
+        ))} </div></Col>)
 
       }
 

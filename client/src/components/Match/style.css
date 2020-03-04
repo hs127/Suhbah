@@ -1,6 +1,5 @@
 
-.roomateCard {
-    display: flex;
-  flex-direction: column;
-  justify-content: center;
+.roomateCard { 
+  display: flex;
+   justify-content: space-between;
 }

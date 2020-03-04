@@ -28,6 +28,9 @@ export default {
     },
     getDefaultRoomates: function () {
         return axios.get("/api/defaultroomates");
+    },
+    getFirebase: function () {
+        return axios.get("/api/fire");
     }
     //this returns the current user data and it's homedeatils post associated with it 
     // getCurrentUser: function (id) {

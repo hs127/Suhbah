@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col'
+import Col from 'react-bootstrap/Col';
 import Dialog from '@material-ui/core/Dialog';
 // import { MuiThemeProvider } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
@@ -30,7 +30,6 @@ function Profile(props) {
               <h1 className="formh1">Profile Section</h1>
             </Col>
           </Row>
-          {/* <MuiThemeProvider > */}
 
           <React.Fragment>
             <Row style={{ marginBottom: 20 }}>
@@ -182,21 +181,12 @@ function Profile(props) {
                 </FormControl>
               </Col>
             </Row>
-            <Row style={{ paddingTop: 20 }} >
-              <Col sm>
-              </Col>
-
-              <Col sm>
-                <div className="userButtons">
-                  <button type="submit" onClick={(e) => { props.handleFormSubmit(e) }}>Submit</button>
-                </div>
-              </Col>
-              <Col sm>
+            <Row>
+              <Col className="test userButtons">
+                <button type="submit" onClick={(e) => { props.handleFormSubmit(e) }}>Submit</button>
               </Col>
             </Row>
           </React.Fragment>
-
-          {/* </MuiThemeProvider> */}
 
         </div>
       </div>
