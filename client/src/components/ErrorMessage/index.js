@@ -1,5 +1,5 @@
 import React from "react";
-import { Jumbotron, Container } from 'react-bootstrap';
+import { Jumbotron, Container, Row, Col } from 'react-bootstrap';
 
 function ErrorMessage(props) {
 
@@ -7,13 +7,19 @@ function ErrorMessage(props) {
   return (
     <div>
       <Jumbotron fluid className="background">
-        <Container>
+        <Container className="formColor test">
+          <Row>
+            <Col>
+              <h4 className="formh1">
+                Please submit you Profile first so we can get to know you better 😃</h4>
+            </Col>
+          </Row>
 
-          <h4>
-            Please Submit Profile First so we can get to know you better
-          </h4>
-
-          <button onClick={() => props.handlePageChange("Profile")} >My Profile Page </button>
+          <Row>
+            <Col md={{ span: 6, offset: 3 }} className="userButtons test">
+              <button onClick={() => props.handlePageChange("Profile")} >My Profile Page </button>
+            </Col>
+          </Row>
         </Container>
       </Jumbotron >
     </div>

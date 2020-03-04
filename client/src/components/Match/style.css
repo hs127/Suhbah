@@ -1,5 +1,51 @@
 
 .roomateCard { 
+/* this is makeing it horizontal  */
+  /* display: flex;
+   justify-content: space-between; */
+}
+
+.backgroundDeets {
+    background-color: #2EB7A9;
+}
+
+.formh3 {
+  text-align: center;
+  width: 100%;
+  color: #F1F0CC;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.homepage{
+    background-color: #2EB7A9;
+     height: 100vh;
+}
+
+.formColor {
+    background-color:#F1F0CC;
+    /* padding-bottom:0px;  */
+
+}
+
+.test {
+    display: flex;
+    flex-direction: column;
+}
+
+.formh1 {
+  text-align: center;
+  /* width: 100%; */
+  color: #028090;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.userButtons {
+  width: 100%;
   display: flex;
-   justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
 }

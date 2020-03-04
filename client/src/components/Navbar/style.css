@@ -1,3 +1,104 @@
 nav.navbar.navbar-default {
   margin-bottom: 0;
 }
+
+.displayType {
+display:inline-block; 
+/* flex-direction: row; */
+width:auto; 
+}
+/* .userButtons1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+/* 
+.bg-light {
+  background-color: #F7F9F9;
+
+} */
+
+.heads {
+  color: #028090;
+  font-weight: bold;
+  margin-left:35%;
+}
+
+/* Modify brand and text color */ 
+.navbar-custom .navbar-brand, 
+.navbar-custom .navbar-text { 
+color: #02C39A;
+} 
+
+Navbar {
+   border: 5px solid #2EB7A9;
+}
+
+a {
+  text-align:center; 
+}
+
+.stylee {
+  border: 5px solid #02C39A;
+  margin-bottom:2%; 
+  text-align:center; 
+  
+}
+/* .navbar-light .navbar-nav .nav-link {
+    color:#028090;
+} */
+
+
+.test {
+    display: flex;
+    flex-direction: column;
+}
+
+.userButtons1 {
+   background-color: #2EB7A9;
+  border: 2px solid #F7F9F9;
+  font-size: 1em;
+  color: #F7F9F9;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 0.25em;
+}
+
+/* .userButtons button {
+
+} */
+
+.userButtons1 button:hover {
+   color: #519e8a;
+   background-color:  #fff;
+  border: 2px solid #028090;
+}
+
+/* #signOut {
+margin-left:49%
+
+} */
+
+.test {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #028090;
+}
+
+
+@media screen and (max-width:320px) {
+
+.userButtons1 {
+
+font-size: 15px; 
+width:10%; 
+
+}
+
+}
+
+

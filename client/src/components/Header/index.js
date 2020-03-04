@@ -5,10 +5,10 @@ function Header(props) {
     return (
         <Jumbotron className="background">
             <Container>
-                <h1 align="center">Welcome to Suhbah</h1>
+                <h1 align="center">Suhbah🤗</h1>
 
                 <p align="center">
-                    Companionship - Roomatehood beyond spliting bills
+                    Companionship - Roomatehood beyond spliting bills 🏡
                 </p>
             </Container>
         </Jumbotron>

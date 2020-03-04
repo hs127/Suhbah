@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
-import Navbar from "../../components/Navbar";
+import Naav from "../../components/Navbar";
 import Wrapper from "../../components/Wrapper";
 import Profile from "../../components/Profile";
 import Match from "../../components/Match";
@@ -247,13 +247,20 @@ class Homepage extends Component {
                             handleSearchInputChange={this.handleSearchInputChange}
                             handleRoomateSearch={(e) => this.handleRoomateSearch(e)}
                         />
-                        <Match roomates={this.state.roomates} />
+                        <Match
+                            userID={this.props.dataFromParent.uid}
+                            roomates={this.state.roomates}
+                        />
                     </div>
                 </>);
         }
         //if nav = PRofile and submtPRofile is true show the Submit REview Message 
         else if (this.state.currentPage === "Profile" && this.state.submitProfile) {
-            return (<SubmitMessage username={this.state.username} />);
+            return (<SubmitMessage
+                username={this.state.username}
+                handlePageChange={this.handlePageChange}
+                currentPage={this.state.currentPage}
+            />);
         }
         //if the nav = profile and submitPRofile is false show the profile coponene t
         else if (this.state.currentPage === "Profile") {
@@ -265,11 +272,14 @@ class Homepage extends Component {
             );
         }
 
-
         //if nave == Housing and submit housing is true show submit message 
 
         else if (this.state.currentPage === "Housing" && this.state.submitHousing) {
-            return (<SubmitMessage username={this.state.username} />);
+            return (<SubmitMessage
+                username={this.state.username}
+                handlePageChange={this.handlePageChange}
+                currentPage={this.state.currentPage}
+            />);
         }
 
         // else if (this.state.currentPage === "Housing" && this.state.currentUser[0].placeInd != null) {
@@ -278,7 +288,7 @@ class Homepage extends Component {
 
 
         //if the nav = Housing and if submitProfiel is false  & SubmitHousing is false 
-        else if (this.state.currentPage === "Housing" && !this.state.submitProfile || this.state.placeInd === "") {
+        else if (this.state.currentPage === "Housing" && (!this.state.submitProfile || this.state.placeInd === "")) {
             return (<ErrorMessage handlePageChange={this.handlePageChange} />);
         }
         //if nave == Housing and submitPRfile is true and place="havePLace"
@@ -331,11 +341,12 @@ class Homepage extends Component {
         console.log(this.state.placeInd);
         console.log(this.state.submitHousing);
         console.log(this.state.submitProfile);
+        console.log(this.state.currentPage);
         return (
 
             <div className="homepage">
 
-                <Navbar
+                <Naav
                     currentPage={this.state.currentPage}
                     handlePageChange={this.handlePageChange}
                     logout={() => this.logout(this.props.dataFromParent.uid)}

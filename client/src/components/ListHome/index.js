@@ -29,8 +29,8 @@ function Listing(props) {
         <Row>
           <Col className="test">
             <TextField
-              placeholder="Listing Name"
-              label="I live by a lake"
+              placeholder="Castle of Narnia"
+              label="lakeListing Name"
               name="listingName"
               value={props.listingName}
               onChange={props.handleInputChange}

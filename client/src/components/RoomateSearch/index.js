@@ -21,9 +21,12 @@ function RoomateSearch(props) {
     <div>
       <Container className="formColor">
         <Row>
+          <h1 className="formh1">Search for a صديق [Sadēq] </h1>
+        </Row>
+        <Row>
           <Col className="test">
             <FormControl>
-              <InputLabel htmlFor="age-native-simple">Has a Place?</InputLabel>
+              <InputLabel htmlFor="age-native-simple">Place?</InputLabel>
               <Select
                 native
                 placeholder="Place"
@@ -59,7 +62,7 @@ function RoomateSearch(props) {
 
           </Col>
           <Col>
-            <TextField style={{ marginTop: 8 }}
+            <TextField
               placeholder="State"
               label="State"
               name="state"
@@ -70,8 +73,10 @@ function RoomateSearch(props) {
               onChange={props.handleSearchInputChange}
             />
           </Col>
-          <Col className="test userButtons">
-            <Button onClick={(e) => props.handleRoomateSearch(e)} variant="contained">Search Companions</Button>
+        </Row>
+        <Row>
+          <Col md={{ span: 6, offset: 3 }} className="test userButtons">
+            <Button onClick={(e) => props.handleRoomateSearch(e)}>Search Companions</Button>
           </Col>
         </Row>
       </Container>
