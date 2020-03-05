@@ -30,7 +30,7 @@ function Listing(props) {
           <Col className="test">
             <TextField
               placeholder="Castle of Narnia"
-              label="lakeListing Name"
+              label="Listing Name"
               name="listingName"
               value={props.listingName}
               onChange={props.handleInputChange}
