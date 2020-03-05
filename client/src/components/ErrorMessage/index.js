@@ -11,7 +11,7 @@ function ErrorMessage(props) {
           <Row>
             <Col>
               <h4 className="formh1">
-                Please submit you Profile first so we can get to know you better 😃</h4>
+                Please submit your Profile first so we can get to know you better 😃</h4>
             </Col>
           </Row>
 

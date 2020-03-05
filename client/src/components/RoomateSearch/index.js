@@ -16,16 +16,18 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 
 function RoomateSearch(props) {
-
+  const { searchErrors } = props;
   return (
     <div>
       <Container className="formColor">
         <Row>
-          <h1 className="formh1">Search for a صديق [Sadēq] </h1>
+          <h1 className="formh1">Search for a صديق <span style={{ fontSize: 18 }}> [Sadēq] </span></h1>
         </Row>
         <Row>
           <Col className="test">
-            <FormControl>
+            <FormControl
+              required
+              error={searchErrors.placeInd.length === 0 ? false : true}>
               <InputLabel htmlFor="age-native-simple">Place?</InputLabel>
               <Select
                 native
@@ -41,9 +43,14 @@ function RoomateSearch(props) {
                 <option value="noPlace">No</option>
               </Select>
             </FormControl>
+            {props.searchErrors.placeInd.length > 0 && (
+              <span className="error">{props.searchErrors.placeInd}</span>
+            )}
           </Col>
           <Col className="test">
-            <FormControl>
+            <FormControl required
+              error={searchErrors.gender.length === 0 ? false : true}>
+
               <InputLabel htmlFor="age-native-simple">Gender</InputLabel>
               <Select
                 native
@@ -59,10 +66,16 @@ function RoomateSearch(props) {
                 <option value="male">Male</option>
               </Select>
             </FormControl>
+            {props.searchErrors.gender.length > 0 && (
+              <span className="error">{props.searchErrors.gender}</span>
+            )}
 
           </Col>
           <Col>
             <TextField
+              required
+              // className={searchErrors.state.length > 0 ? "error" : null}
+              error={searchErrors.state.length === 0 ? false : true}
               placeholder="State"
               label="State"
               name="state"
@@ -72,7 +85,11 @@ function RoomateSearch(props) {
               value={props.query.state}
               onChange={props.handleSearchInputChange}
             />
+            {props.searchErrors.state.length > 0 && (
+              <span className="error">{props.searchErrors.state}</span>
+            )}
           </Col>
+
         </Row>
         <Row>
           <Col md={{ span: 6, offset: 3 }} className="test userButtons">

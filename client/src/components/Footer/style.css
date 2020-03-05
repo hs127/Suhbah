@@ -30,7 +30,8 @@ light green: #A3C4BC
 }
 
 
-.error {
+
+input.error {
   border: 1px solid red;
 }
 

@@ -36,11 +36,11 @@ class Signup extends Component {
         switch (name) {
             case "firstName":
                 formErrors.firstName =
-                    value.length < 3 ? "minimum 3 characaters required" : "";
+                    value.length < 3 ? "minimum 5 characters required" : "";
                 break;
             case "lastName":
                 formErrors.lastName =
-                    value.length < 3 ? "minimum 3 characaters required" : "";
+                    value.length < 3 ? "minimum 3 characters required" : "";
                 break;
             case "email":
                 formErrors.email = emailRegex.test(value)
@@ -49,7 +49,7 @@ class Signup extends Component {
                 break;
             case "password":
                 formErrors.password =
-                    value.length < 6 ? "minimum 6 characaters required" : "";
+                    value.length < 6 ? "minimum 6 characters required" : "";
                 break;
             default:
                 break;

@@ -6,21 +6,15 @@ import Col from 'react-bootstrap/Col';
 import Dialog from '@material-ui/core/Dialog';
 // import { MuiThemeProvider } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-
 
 //sign up Modal 
 
 function Profile(props) {
-
+  const { formErrors } = props;
   return (
     <Container className="formColor">
       <div className="">
@@ -30,25 +24,29 @@ function Profile(props) {
               <h1 className="formh1">Profile Section</h1>
             </Col>
           </Row>
-
           <React.Fragment>
             <Row style={{ marginBottom: 20 }}>
               <Col md={4} className="test">
+
                 <TextField required
+                  className={formErrors.username.length > 0 ? "error" : null}
                   id="standard-basic"
                   placeholder="Enter a Username"
                   label="username"
                   name="username"
                   value={props.username}
                   onChange={props.handleInputChange}
+                  error={formErrors.username.length === 0 ? false : true}
                 />
+                {props.formErrors.username.length > 0 && (
+                  <span className="error">{props.formErrors.username}</span>
+                )}
               </Col>
             </Row>
 
             <Row>
               <Col className="test">
-
-                <FormControl>
+                <FormControl required>
                   <InputLabel htmlFor="age-native-simple">Age</InputLabel>
                   <Select
                     native
@@ -70,7 +68,7 @@ function Profile(props) {
                 </FormControl>
               </Col>
               <Col className="test">
-                <FormControl>
+                <FormControl required>
                   <InputLabel htmlFor="age-native-simple">Gender</InputLabel>
                   <Select
                     native
@@ -92,7 +90,7 @@ function Profile(props) {
 
             <Row>
               <Col className="test">
-                <TextField
+                <TextField required
                   native
                   placeholder="Occupation"
                   label="Occupation"
@@ -103,10 +101,57 @@ function Profile(props) {
                 />
               </Col>
             </Row>
-
             <Row>
               <Col className="test">
                 <FormControl>
+                  <InputLabel htmlFor="age-native-simple">LifeStyle</InputLabel>
+                  <Select
+                    native
+                    placeholder="LifeStyle"
+                    value={props.lifeStyle}
+                    onChange={props.handleInputChange}
+                    inputProps={{
+                      name: 'lifeStyle'
+                    }}
+                  >
+                    <option value="" />
+                    <option value="Activism">Activism</option>
+                    <option value="Bohemianism">Bohemian</option>
+                    <option value="Corporate">Corporate</option>
+                    <option value="Hippie">Hippe</option>
+                    <option value="Rural">Rural</option>
+                    <option value="Jet">Jet set</option>
+                    <option value="Solo">Solo</option>
+                    <option value="Traditional">Traditional</option>
+                  </Select>
+                </FormControl>
+              </Col>
+
+              <Col className="test">
+                <FormControl>
+                  <InputLabel htmlFor="age-native-simple">Morning/Evening</InputLabel>
+                  <Select
+                    native
+                    placeholder="Bird/Owl"
+                    value={props.animal}
+                    onChange={props.handleInputChange}
+                    inputProps={{
+                      name: 'animal'
+                    }}
+                  >
+                    <option value="" />
+                    <option value="Bird">Morning Bird</option>
+                    <option value="Owl">Night Owl</option>
+                  </Select>
+                </FormControl>
+              </Col>
+
+            </Row>
+
+
+            <Row>
+              <Col className="test">
+                <FormControl required>
                   <InputLabel htmlFor="age-native-simple">Smoke?</InputLabel>
                   <Select
                     native
@@ -124,7 +169,7 @@ function Profile(props) {
                 </FormControl>
               </Col>
               <Col className="test">
-                <FormControl>
+                <FormControl required>
                   <InputLabel htmlFor="age-native-simple">Kids?</InputLabel>
                   <Select
                     native
@@ -145,7 +190,7 @@ function Profile(props) {
 
             <Row>
               <Col className="test">
-                <FormControl>
+                <FormControl required>
                   <InputLabel htmlFor="age-native-simple">Pets?</InputLabel>
                   <Select
                     native
@@ -163,7 +208,8 @@ function Profile(props) {
                 </FormControl>
               </Col>
               <Col className="test">
-                <FormControl>
+                <FormControl required
+                  error={formErrors.placeInd.length === 0 ? false : true}>
                   <InputLabel htmlFor="age-native-simple">Have a Place?</InputLabel>
                   <Select
                     native
@@ -179,6 +225,9 @@ function Profile(props) {
                     <option value="noPlace">No</option>
                   </Select>
                 </FormControl>
+                {props.formErrors.placeInd.length > 0 && (
+                  <span className="error">{props.formErrors.placeInd}</span>
+                )}
               </Col>
             </Row>
             <Row>

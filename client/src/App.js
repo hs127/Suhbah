@@ -5,6 +5,7 @@ import Homepage from "./pages/homepage/Homepage";
 // import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 // import Navbar from "./components/Navbar";
 // import Wrapper from "./components/Wrapper";
 import fire from './config/Fire';
@@ -79,7 +80,7 @@ class App extends Component {
           (<> <Homepage dataFromParent={this.state.user} /> </>)
           :
           (<Signup />)}
-
+        <Footer />
       </div>
     );
   }

@@ -25,7 +25,7 @@ function Naav(props) {
           My Profile
        </Nav.Link>
         <Nav.Link href="#match" onClick={() => props.handlePageChange("Match")}>
-          Asahab Matches</Nav.Link>
+          Companions</Nav.Link>
         <Nav.Link href="#housing" onClick={() => props.handlePageChange("Housing")}>
           Home Details</Nav.Link>
       </Nav>

@@ -4,6 +4,15 @@
      height: 100vh;
 }
 
+.error {
+  border: 1px solid red;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 1px;
+  display: relative;
+}
 .formColor {
     background-color:#F1F0CC;
     padding-bottom:15px; 

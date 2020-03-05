@@ -13,6 +13,37 @@ import "./homepage.css";
 import fire from "../../config/Fire";
 
 
+const formValid = ({ formErrors, ...rest }) => {
+    let valid = true;
+
+    // validate form errors being empty
+    Object.values(formErrors).forEach(val => {
+        val.length > 0 && (valid = false);
+    });
+
+    // validate the form was filled out
+    Object.values(rest).forEach(val => {
+        val === null && (valid = false);
+    });
+
+    return valid;
+};
+
+const searchValid = ({ searchErrors, ...rest }) => {
+    let valid = true;
+
+    // validate form errors being empty
+    Object.values(searchErrors).forEach(val => {
+        val.length > 0 && (valid = false);
+    });
+
+    // validate the form was filled out
+    Object.values(rest).forEach(val => {
+        val === null && (valid = false);
+    });
+
+    return valid;
+};
 
 class Homepage extends Component {
 
@@ -49,14 +80,26 @@ class Homepage extends Component {
         submitHousing: false,
         redirect: false,
         submitProfile: false,
+        animal: "",
         currentUser: [],
         roomates: [],
         query: {
             gender: "",
             placeInd: "",
             state: ""
+        },
+        formErrors: {
+            username: "",
+            placeInd: "",
+
+        },
+        searchErrors: {
+            gender: "",
+            placeInd: "",
+            state: ""
         }
     };
+
 
     // getRoomate = () => {
     //     API.getRoomate
@@ -109,27 +152,56 @@ class Homepage extends Component {
         // console.log(e.target.value);
         e.preventDefault();
         this.setState({ [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        let formErrors = { ...this.state.formErrors };
+        switch (name) {
+            case "username":
+                formErrors.username =
+                    value.length < 3 ? "min 3 characters required" : "";
+                break;
+            case "placeInd":
+                formErrors.placeInd =
+                    value === " " ? "Please select an option" : "";
+                break;
+            default:
+                break;
+        }
+        this.setState({ formErrors, [name]: value }, () => console.log(this.state));
     }
 
     //submit Buttton for Profile page 
 
     handleFormSubmit = (e, uid) => {
         e.preventDefault();
-        console.log("Profile submitted");
-        this.setState({ [e.target.name]: e.target.value });
-        this.setState({ submitProfile: true });
-        API.updateProfile(uid, {
-            username: this.state.username,
-            kids: this.state.kids,
-            smoke: this.state.smoke,
-            age: this.state.age,
-            pets: this.state.pets,
-            gender: this.state.gender,
-            occupation: this.state.occupation,
-            placeInd: this.state.placeInd,
-            practicing: this.state.practicing,
-            submitProfile: true
-        }).then(data => console.log(data))
+        if (formValid(this.state)) {
+            console.log(`
+        --SUBMITTING--
+        First Name: ${this.state.firstName}
+        Last Name: ${this.state.lastName}
+        Email: ${this.state.email}
+        Password: ${this.state.password}
+      `);
+
+            console.log("Profile submitted");
+            this.setState({ [e.target.name]: e.target.value });
+            this.setState({ submitProfile: true });
+            API.updateProfile(uid, {
+                username: this.state.username,
+                kids: this.state.kids,
+                smoke: this.state.smoke,
+                age: this.state.age,
+                pets: this.state.pets,
+                gender: this.state.gender,
+                occupation: this.state.occupation,
+                placeInd: this.state.placeInd,
+                practicing: this.state.practicing,
+                submitProfile: true
+            }).then(data => console.log(data))
+        } else {
+            console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+        }
+
+
         //add empty strings 
         // resetFormFilds(e.target.name);
         // this.currentuserfunction();
@@ -200,17 +272,51 @@ class Homepage extends Component {
             query: { ...prevState.query, [name]: value }
         }))
         console.log(this.state.query);
+        let searchErrors = { ...this.state.searchErrors };
+        switch (name) {
+            case "gender":
+                searchErrors.gender =
+                    value.length < 1 ? "Select an option" : "";
+                break;
+            case "placeInd":
+                searchErrors.placeInd =
+                    value.length < 1 ? "Select an option" : "";
+                break;
+            case "state":
+                searchErrors.state =
+                    value.length < 2 ? "Input State" : "";
+                break;
+            default:
+                break;
+        }
+        this.setState({ searchErrors, [name]: value }, () => console.log(this.state));
+
+
     }
 
     handleRoomateSearch = (e) => {
         e.preventDefault();
         const { name, value } = e.target;
-        console.log("roomate SEarch function");
-        this.setState(prevState => ({
-            query: { ...prevState.query, [name]: value }
-        }));
-        this.searchRoomates();
-        console.log(this.state.query);
+
+        if (formValid(this.state)) {
+            console.log(`
+        --SUBMITTING--
+        state: ${this.state.query.state}
+      `);
+            console.log("roomate SEarch function");
+            this.setState(prevState => ({
+                query: { ...prevState.query, [name]: value }
+            }));
+            this.searchRoomates();
+            console.log(this.state.query);
+
+
+        } else {
+            console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+        }
+
+
+
     }
 
     searchRoomates = () => {
@@ -246,6 +352,7 @@ class Homepage extends Component {
                             query={this.state.query}
                             handleSearchInputChange={this.handleSearchInputChange}
                             handleRoomateSearch={(e) => this.handleRoomateSearch(e)}
+                            searchErrors={this.state.searchErrors}
                         />
                         <Match
                             userID={this.props.dataFromParent.uid}
@@ -268,6 +375,7 @@ class Homepage extends Component {
                 handleInputChange={this.handleInputChange}
                 handleFormSubmit={(e) => this.handleFormSubmit(e, this.props.dataFromParent.uid)}
                 handleUpdate={this.handleUpdate}
+                formErrors={this.state.formErrors}
             />
             );
         }
