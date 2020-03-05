@@ -19,7 +19,7 @@ function Match(props) {
       {/* <Container className="formColor test">
         <h1 className="formh1">Search for a صديق [Sadēq] </h1>
       </Container> */}
-      {!users.length ? (<h1 align="center" >No Matches</h1>) :
+      {!users.length ? (<h1 align="center" >No Ashab Matches</h1>) :
         (<Col>
           <h3 className="formh3">Click on a صديق to 📧</h3>
           <div className="roomateCard"> {users.map((data, i) => (
